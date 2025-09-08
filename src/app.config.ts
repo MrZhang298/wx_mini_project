@@ -21,8 +21,8 @@ export default defineAppConfig({
       {
         pagePath: "pages/index/index",
         text: "我的",
-        iconPath: "./image/home.png",
-        selectedIconPath: "./image/home1.png",
+        iconPath: "./image/person.png",
+        selectedIconPath: "./image/person1.png",
       },
     ],
   },

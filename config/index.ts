@@ -18,7 +18,9 @@ export default defineConfig<"webpack5">(async (merge) => {
     sourceRoot: "src",
     outputRoot: "dist",
     plugins: ["@tarojs/plugin-generator"],
-    defineConstants: {},
+    defineConstants: {
+      _env: JSON.stringify(process.env.NODE_ENV)
+    },
     copy: {
       patterns: [
         { from: "src/image/", to: "dist/image/" }, // 如果图片在 src/image

@@ -1,10 +1,32 @@
+import { useEffect, useMemo, useState } from 'react'
 import { View, Button } from '@tarojs/components'
-import Taro, { useLoad, usePullDownRefresh } from '@tarojs/taro'
+import Taro, { useLoad, usePullDownRefresh, useReady } from '@tarojs/taro'
+
+import api from '../../request'
+
 import './index.less'
+
+const useCount = (count: number) => {
+  return useMemo(() => {
+    return count + 1
+  }, [count])
+}
+
+const useCount2 = (count: number) => {
+  const [count2, setCount2] = useState(count)
+  useEffect(() => {
+    setCount2(count + 2)
+  }, [count])
+  return count2
+}
 
 export default function Index () {
   useLoad(() => {
     console.log('Page loaded.')
+  })
+
+  useReady(() => {
+    console.log('Page ready.')
   })
 
   usePullDownRefresh(() => {
@@ -15,17 +37,13 @@ export default function Index () {
     }, 1000)
   })
 
-  const showToast = () => {
-    Taro.showToast({
-      title: 'Hello, World!',
-      icon: 'none',
-      duration: 2000
-    })
+  const showToast = async () => {
+    const res = await api.postRequest('/api/users/list', {})
+    console.log(res)
   }
 
   return (
     <View className='main'>
-      111
       <Button onClick={showToast}>toast</Button>
     </View>
   )

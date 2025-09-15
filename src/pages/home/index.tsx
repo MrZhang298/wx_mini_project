@@ -1,4 +1,4 @@
-import { useEffect, useMemo, useState } from 'react'
+// import { useEffect, useMemo, useState } from 'react'
 import { View, Button } from '@tarojs/components'
 import Taro, { useLoad, usePullDownRefresh, useReady } from '@tarojs/taro'
 
@@ -6,19 +6,19 @@ import api from '../../request'
 
 import './index.less'
 
-const useCount = (count: number) => {
-  return useMemo(() => {
-    return count + 1
-  }, [count])
-}
-
-const useCount2 = (count: number) => {
-  const [count2, setCount2] = useState(count)
-  useEffect(() => {
-    setCount2(count + 2)
-  }, [count])
-  return count2
-}
+// const useCount = (count: number) => {
+//   return useMemo(() => {
+//     return count + 1
+//   }, [count])
+// }
+//
+// const useCount2 = (count: number) => {
+//   const [count2, setCount2] = useState(count)
+//   useEffect(() => {
+//     setCount2(count + 2)
+//   }, [count])
+//   return count2
+// }
 
 export default function Index () {
   useLoad(() => {
@@ -38,8 +38,10 @@ export default function Index () {
   })
 
   const showToast = async () => {
-    const res = await api.postRequest('/api/users/list', {})
+    const res = await api.postRequest<{ a: string }, {}>('/api/users/list', {})
     console.log(res)
+    const a = res?.data?.a
+    console.log(a)
   }
 
   return (

@@ -1,4 +1,4 @@
-// import { useEffect, useMemo, useState } from 'react'
+import { useState } from 'react'
 import { Button, Text } from '@tarojs/components'
 import Taro, { useLoad, usePullDownRefresh, useReady } from '@tarojs/taro'
 
@@ -7,7 +7,6 @@ import MainView from '@/components/mainView'
 import api from '../../request'
 
 import './index.less'
-import { useState } from 'react'
 
 // const useCount = (count: number) => {
 //   return useMemo(() => {
@@ -27,6 +26,8 @@ export default function Index () {
   const [string, setString] = useState('')
   useLoad(() => {
     console.log('Page loaded.')
+    const appData = Taro.getApp()
+    console.log(appData)
   })
 
   useReady(() => {
@@ -77,12 +78,22 @@ export default function Index () {
     })
   }
 
+  const getAppData = () => {
+    const appData = Taro.getApp()
+    appData.setUserInfo({
+      name: 'zhang',
+      age: 18
+    })
+    console.log(appData)
+  }
+
   return (
     <MainView>
       <Button onClick={showToast}>toast</Button>
       <Button onClick={toTextPage}>toast1</Button>
       <Button onClick={hideTabBar}>toast2</Button>
       <Button onClick={showTabBar}>toast3</Button>
+      <Button onClick={getAppData}>toast4</Button>
       <Text>{string}</Text>
     </MainView>
   )

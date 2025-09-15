@@ -1,6 +1,8 @@
 // import { useEffect, useMemo, useState } from 'react'
-import { View, Button } from '@tarojs/components'
+import { Button, Text } from '@tarojs/components'
 import Taro, { useLoad, usePullDownRefresh, useReady } from '@tarojs/taro'
+
+import MainView from '@/components/mainView'
 
 import api from '../../request'
 
@@ -44,9 +46,17 @@ export default function Index () {
     console.log(a)
   }
 
+  const toTextPage = () => {
+    Taro.navigateTo({
+      url: '/pages/text/index'
+    })
+  }
+
   return (
-    <View className='main'>
+    <MainView>
       <Button onClick={showToast}>toast</Button>
-    </View>
+      <Button onClick={toTextPage}>toast1</Button>
+      <Text>111</Text>
+    </MainView>
   )
 }

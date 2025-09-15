@@ -7,6 +7,7 @@ import MainView from '@/components/mainView'
 import api from '../../request'
 
 import './index.less'
+import { useState } from 'react'
 
 // const useCount = (count: number) => {
 //   return useMemo(() => {
@@ -23,6 +24,7 @@ import './index.less'
 // }
 
 export default function Index () {
+  const [string, setString] = useState('')
   useLoad(() => {
     console.log('Page loaded.')
   })
@@ -42,13 +44,24 @@ export default function Index () {
   const showToast = async () => {
     const res = await api.postRequest<{ a: string }, {}>('/api/users/list', {})
     console.log(res)
-    const a = res?.data?.a
+    const a = res && res.data && res.data.a
     console.log(a)
   }
 
   const toTextPage = () => {
     Taro.navigateTo({
-      url: '/pages/text/index'
+      url: '/pages/text/index',
+      events: {
+        // 为指定事件添加一个监听器，获取被打开页面传送到当前页面的数据
+        acceptDataFromOpenedPage: function(data: { data: string }) {
+          console.log(data)
+          setString(data.data || JSON.stringify(data))
+        },
+      },
+      success: function (res) {
+        // 通过eventChannel向被打开页面传送数据
+        res.eventChannel.emit('acceptDataFromOpenerPage', { data: 'test' })
+      }
     })
   }
 
@@ -56,7 +69,7 @@ export default function Index () {
     <MainView>
       <Button onClick={showToast}>toast</Button>
       <Button onClick={toTextPage}>toast1</Button>
-      <Text>111</Text>
+      <Text>{string}</Text>
     </MainView>
   )
 }

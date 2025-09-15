@@ -65,10 +65,24 @@ export default function Index () {
     })
   }
 
+  const hideTabBar = () => {
+    Taro.hideTabBar({
+      animation: true,
+    })
+  }
+
+  const showTabBar = () => {
+    Taro.showTabBar({
+      animation: true,
+    })
+  }
+
   return (
     <MainView>
       <Button onClick={showToast}>toast</Button>
       <Button onClick={toTextPage}>toast1</Button>
+      <Button onClick={hideTabBar}>toast2</Button>
+      <Button onClick={showTabBar}>toast3</Button>
       <Text>{string}</Text>
     </MainView>
   )

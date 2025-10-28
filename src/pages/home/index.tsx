@@ -1,5 +1,5 @@
 import { useState } from 'react'
-import { Button, Text } from '@tarojs/components'
+import {Button, Picker, Text, View} from '@tarojs/components'
 import Taro, { useLoad, usePullDownRefresh, useReady } from '@tarojs/taro'
 
 import MainView from '@/components/mainView'
@@ -21,6 +21,8 @@ import './index.less'
 //   }, [count])
 //   return count2
 // }
+
+const range = ['USA', 'China', 'Japan']
 
 export default function Index () {
   const [string, setString] = useState('')
@@ -95,6 +97,11 @@ export default function Index () {
       <Button onClick={showTabBar}>toast3</Button>
       <Button onClick={getAppData}>toast4</Button>
       <Text>{string}</Text>
+      <Picker range={range}>
+        <View>
+          1111
+        </View>
+      </Picker>
     </MainView>
   )
 }

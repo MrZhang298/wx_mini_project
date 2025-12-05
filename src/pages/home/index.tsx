@@ -1,5 +1,5 @@
 import { useState } from 'react'
-import {Button, Picker, Text, View} from '@tarojs/components'
+import {Button, Picker, Text} from '@tarojs/components'
 import Taro, { useLoad, usePullDownRefresh, useReady } from '@tarojs/taro'
 
 import MainView from '@/components/mainView'
@@ -34,8 +34,6 @@ export default function Index () {
 
   useReady(() => {
     console.log('Page ready.')
-    const appData = Taro.getApp()
-    console.log(appData)
   })
 
   usePullDownRefresh(() => {
@@ -84,25 +82,23 @@ export default function Index () {
 
   const getAppData = () => {
     const appData = Taro.getApp()
-    appData.setUserInfo({
-      name: 'zhang',
-      age: 18
-    })
     console.log(appData)
+  }
+
+  const handlePickerChange = (e: any) => {
+    console.log('e', e)
   }
 
   return (
     <MainView>
       <Button onClick={showToast}>toast</Button>
-      <Button onClick={toTextPage}>toast1</Button>
-      <Button onClick={hideTabBar}>toast2</Button>
-      <Button onClick={showTabBar}>toast3</Button>
-      <Button onClick={getAppData}>toast4</Button>
-      <Text>{string}</Text>
-      <Picker range={range}>
-        <View>
-          1111
-        </View>
+      <Button onClick={toTextPage}>测试事件消息传递</Button>
+      <Button onClick={hideTabBar}>隐藏tabBar</Button>
+      <Button onClick={showTabBar}>显示tabBar</Button>
+      <Button onClick={getAppData}>获取appData</Button>
+      <Text>事件消息：{string}</Text>
+      <Picker range={range} onChange={handlePickerChange}>
+        <Button>选择器变化</Button>
       </Picker>
     </MainView>
   )

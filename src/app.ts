@@ -1,5 +1,5 @@
 import { PropsWithChildren, useEffect } from 'react'
-import { getApp, useLaunch } from '@tarojs/taro'
+import { getApp } from '@tarojs/taro'
 
 import './app.less'
 
@@ -11,10 +11,6 @@ function App({ children }: PropsWithChildren) {
   const setUserInfo = (userInfo: any) => {
     globalData.userInfo = userInfo
   }
-
-  useLaunch(() => {
-    console.log('App launched.')
-  })
 
   useEffect(() => {
     const app = getApp()

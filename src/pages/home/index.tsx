@@ -3,7 +3,7 @@ import {Button, Picker, Text, View} from '@tarojs/components'
 import Taro, { useLoad, usePullDownRefresh, useReady } from '@tarojs/taro'
 
 import MainView from '@/components/mainView'
-
+import { setGlobalAppData } from '@/utils'
 import api from '../../request'
 
 import './index.less'
@@ -26,14 +26,16 @@ const range = ['USA', 'China', 'Japan']
 
 export default function Index () {
   const [string, setString] = useState('')
+
   useLoad(() => {
     console.log('Page loaded.')
-    const appData = Taro.getApp()
-    console.log(appData)
+    setGlobalAppData({ a: '1111' })
   })
 
   useReady(() => {
     console.log('Page ready.')
+    const appData = Taro.getApp()
+    console.log(appData)
   })
 
   usePullDownRefresh(() => {
@@ -53,7 +55,7 @@ export default function Index () {
 
   const toTextPage = () => {
     Taro.navigateTo({
-      url: '/pages/text/index',
+      url: '/pages/test/index',
       events: {
         // 为指定事件添加一个监听器，获取被打开页面传送到当前页面的数据
         acceptDataFromOpenedPage: function(data: { data: string }) {
